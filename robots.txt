@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /tags/
+Allow: /about/
+Disallow: /images/
+Disallow: /js/
+Disallow: /css/
+Disallow: /lib/

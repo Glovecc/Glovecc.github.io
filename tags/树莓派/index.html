@@ -1,0 +1,77 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="alternative" href="/atom.xml" title="橘窝" type="application/atom+xml"><link rel="icon" href="/favicon.ico"><title>树莓派 - 橘窝</title><link rel="stylesheet" href="/css/main.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--></head><body><header class="head"><h1 class="head-title u-fl"><a href="/">橘窝</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a href="/" class="head-nav__link">Home</a></li><li class="head-nav__item"><a href="/archives" class="head-nav__link">Archives</a></li><li class="head-nav__item"><a href="/about" class="head-nav__link">About</a></li><li class="head-nav__item"><a href="/zawen" class="head-nav__link">杂文</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time datetime="2018-10-19T08:59:41.000Z" class="post__time">October 19, 2018</time><h1 class="post__title"><a href="/2018/10/19/树莓派成果报表/">树莓派成果报表</a></h1></header><div class="post__main echo"><blockquote>
+<h3 id="Pages端"><a href="#Pages端" class="headerlink" title="Pages端"></a>Pages端</h3><ul>
+<li><a href="https://juniancc.club">Hexo</a></li>
+</ul>
+<h3 id="外网端"><a href="#外网端" class="headerlink" title="外网端"></a>外网端</h3><ul>
+<li><a href="http://hx.juniancc.club" target="_blank" rel="noopener">Hexo</a></li>
+<li><a href="http://wp.juniancc.club" target="_blank" rel="noopener">Wordpress</a></li>
+<li><a href="http://yun.juniancc.club" target="_blank" rel="noopener">nextcloud</a></li>
+</ul>
+<h3 id="内网端"><a href="#内网端" class="headerlink" title="内网端"></a>内网端</h3><ul>
+<li><a href="http://nei.juniancc.club:81" target="_blank" rel="noopener">Hexo</a></li>
+<li><a href="http://nei.juniancc.club:80" target="_blank" rel="noopener">Wordpress</a></li>
+<li><a href="http://nei.juniancc.club:82" target="_blank" rel="noopener">nextcloud</a></li>
+</ul>
+</blockquote>
+</div><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a href="/tags/树莓派/" class="post__tag__link">树莓派</a></li></ul><a href="/2018/10/19/树莓派成果报表/#disqus_thread" class="post__foot-link u-fr">0 COMMENTS</a></footer></article><article class="post"><header class="post__head"><time datetime="2018-10-18T18:08:16.000Z" class="post__time">October 19, 2018</time><h1 class="post__title"><a href="/2018/10/19/树莓派+linux入坑指南/">树莓派+linux入坑指南</a></h1></header><div class="post__main echo"><p>我在初学树莓派+Linux历程中碰到大大小小的一些麻烦，和最后的解决方案</p>
+<a id="more"></a>
+<h3 id="设置Wifi-开启ssh"><a href="#设置Wifi-开启ssh" class="headerlink" title="设置Wifi+开启ssh"></a>设置Wifi+开启ssh</h3><ol>
+<li>用电脑打开boot盘</li>
+<li>建立ssh文件</li>
+<li>新建wpa_supplicant.conf文件</li>
+<li>打开wpa_supplicant.conf并输入以下内容</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">country=CN</span><br><span class="line">ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev</span><br><span class="line">update_config=1</span><br><span class="line"></span><br><span class="line">network=&#123;</span><br><span class="line">ssid=&quot;WiFi-A&quot;</span><br><span class="line">psk=&quot;12345678&quot;</span><br><span class="line">key_mgmt=WPA-PSK</span><br><span class="line">priority=1 &quot;优先级&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="连接SSH并配置"><a href="#连接SSH并配置" class="headerlink" title="连接SSH并配置"></a>连接SSH并配置</h3><ol>
+<li>通过电脑arp -a或者路由器192.168.1.1找到树莓派的ip</li>
+<li>连接并输入</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo raspi-config</span><br></pre></td></tr></table></figure>
+<p>建议开启扩容+VNC+SPI+摄像头选项</p>
+<p>~解决中文乱码问题~<br>在上述界面点进语言设置界面，然后</p>
+<p><strong>去掉</strong> </p>
+<ul>
+<li>en_GB.UTF-8 UTF-8<br><strong>勾上</strong></li>
+<li>en_US.UTF-8 UTF-8</li>
+<li>zh_CN.UTF-8 UTF-8</li>
+<li>zh_CN.GBK GBK<br><strong>默认语言</strong></li>
+<li>zh_CN.UTF-8 </li>
+</ul>
+<p>然后还有时区之类的设置自己看着选就好<br><del>话说国外的网站之类中国时区全是上海标准，怕不是对中国首都有什么误解</del></p>
+<hr>
+<h3 id="内网穿透"><a href="#内网穿透" class="headerlink" title="内网穿透"></a>内网穿透</h3><p>偶然发现的一个良心商家，无限流量加免费，唯一的遗憾貌似有点慢，不过要啥自行车？</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo wget  -O install.sh <span class="string">'https://xd.zhexi.tech/upgrade/install.sh'</span> &amp;&amp; sudo bash ./install.sh --token 9JfmXu --address xd.zhexi.tech</span><br></pre></td></tr></table></figure>
+<p><a href="https://xd.zhexi.tech" target="_blank" rel="noopener">官网地址</a></p>
+<hr>
+<h3 id="设置静态IP"><a href="#设置静态IP" class="headerlink" title="设置静态IP"></a>设置静态IP</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/dhcpcd.conf</span><br><span class="line"></span><br><span class="line">interface wlan0</span><br><span class="line">static ip_address=192.168.1.xxx/24 <span class="string">"想要设定的IP"</span></span><br><span class="line">static routers=192.168.1.1</span><br><span class="line">static domain_name_servers=192.168.1.1 114.114.114.114 8.8.8.8</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="更新vim"><a href="#更新vim" class="headerlink" title="更新vim"></a>更新vim</h3><p>::树莓派自带的vi是真滴反人类::</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove vim-common</span><br><span class="line">sudo apt-get install vim</span><br><span class="line">sudo vim /etc/vim/vimrc</span><br><span class="line"><span class="built_in">set</span> nu <span class="string">"行数"</span></span><br><span class="line">syntax on </span><br><span class="line"><span class="built_in">set</span> tabstop=4 <span class="string">"tab进4格"</span></span><br><span class="line">colorscheme evening <span class="string">"如果想要全局改的话就在这里改，网上的教程基本都是只对pi生效的"</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="设置定时任务"><a href="#设置定时任务" class="headerlink" title="设置定时任务"></a>设置定时任务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chmod +x 路径名</span><br><span class="line">sudo vim /etc/crontab</span><br><span class="line">sudo service cron restart/etc/init.d/cron  restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* * * * * root 欲执行动作</span><br></pre></td></tr></table></figure>
+<p>打开后会发现这样的语句，前五个分别是<br><code>分钟</code> <code>小时</code> <code>日</code> <code>月</code> <code>年</code><br>如果你想要让他每天执行一次的话，就给前两个一个固定值<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 1 * * * root 欲执行动作</span><br></pre></td></tr></table></figure></p>
+<p>比如这个就是每天01:01执行动作<br>*通配其他指定，这个逻辑一开始觉得挺反人类后来感觉挺有趣的</p>
+<hr>
+<h3 id="设置开机自启"><a href="#设置开机自启" class="headerlink" title="设置开机自启"></a>设置开机自启</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x 路径名</span><br><span class="line">sudo vim /etc/rc.local</span><br></pre></td></tr></table></figure>
+<p>在exit 0上面一行写上想要执行的动作就好<br>然后记得在任务最后加个&amp;<br>意思是后台继续运行而不会去堵住开机的进程</p>
+<hr>
+<h3 id="超频一哈"><a href="#超频一哈" class="headerlink" title="超频一哈"></a>超频一哈</h3><p>3B+貌似不让直接设置超频了，超频这个行为现在只能通过修改配置文件来实现。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /boot/config.txt</span><br><span class="line"><span class="string">"推荐方案"</span></span><br><span class="line">avoid_warnings=1</span><br><span class="line">arm_freq=1350</span><br><span class="line">core_freq=500</span><br><span class="line">over_voltage=4</span><br></pre></td></tr></table></figure>
+<p>底下那四行往最后一放就是了</p>
+<p>::这里是之前偶然查到另一个提升性能的方法::</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo wget -O /usr/bin/zram.sh https://raw.githubusercontent.com/novaspirit/rpi_zram/master/zram.sh</span><br><span class="line">chmod +x /usr/bin/zram.sh</span><br><span class="line">sudo zram.sh</span><br></pre></td></tr></table></figure>
+<p>然后再给上面这个shell弄个开机自启</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/rc.local</span><br><span class="line">/usr/bin/zram.sh＆</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="摄像头"><a href="#摄像头" class="headerlink" title="摄像头"></a>摄像头</h3><p>如果你摄像头安装好了加上启动了设置的话基本就没什么问题了，一般都不需要别的什么操作了。</p>
+<p>常用命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">raspistill -o image.jpg <span class="string">"拍张照放在~/中，路径是可改的，绝对相对都没啥问题"</span></span><br><span class="line">raspistill -o image.jpg -w 640 -h 480 <span class="string">"在做家庭监控之类事情的时候建议通过这个，原图一张2m这个拍出来的只有500k"</span></span><br></pre></td></tr></table></figure>
+<p>然后是我意外发现很好玩的命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">raspistill -o - <span class="string">"这个指令可以将二进制直接打在console上，换句话说如果你通过捷径Jsbox之类软件的话就可以直接通过这个命令获取实时照片"</span></span><br><span class="line">raspistill -o - -ifx emboss <span class="string">"浮雕效果，配合第一条食用更佳"</span></span><br><span class="line">raspistill -o - -cfx 128:128</span><br><span class="line"><span class="string">"黑白照，同上"</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>然后基本玩法就这差不多了，至于OLED，因为像素太低之类的原因，也做不出什么太骚的操作，以后有时间再发怎么绘制他页面的教程吧。</p>
+<p><img src="http://t.cn/EzMHpR4" alt="随便写的System监控"><br>::随便写的System监控::</p>
+<p>好久没写过博客，感觉意外的有意思。</p>
+</div><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a href="/tags/树莓派/" class="post__tag__link">树莓派</a></li></ul><a href="/2018/10/19/树莓派+linux入坑指南/#disqus_thread" class="post__foot-link u-fr">0 COMMENTS</a></footer></article></main><footer class="foot"><div class="foot-copy u-fl">&copy; 2019 Junian<bdi> |  <a target="_blank" href="http://www.beian.miit.gov.cn/">粤ICP备19044128号</a></bdi></div><menu class="page-menu u-fr"><li class="page-menu__item"><span title="Previous" class="page-menu__link icon-arrow-left page-menu__link--disabled"></span></li><li class="page-menu__item"><span title="Next" class="page-menu__link icon-arrow-right page-menu__link--disabled"></span></li></menu></footer></body></html>
